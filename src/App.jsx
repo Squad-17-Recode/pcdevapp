@@ -26,7 +26,6 @@ import ManageUsersP from "./pages/ManageUsersP";
 import ManageCoursesP from "./pages/ManageCoursesP";
 
 import NotFoundP from './pages/NotFoundP';
-import HomeP from "./pages/HomeP";
 
 function App() {
   return (
