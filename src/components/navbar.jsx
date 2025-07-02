@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import '../styles/navbar.css';
 import logo from '../assets/images/logo.png';
+import { useAuth } from '../context/AuthContext';
 
 
 function useOutsideAlerter(ref, onOutsideClick, isCollapsed) {
