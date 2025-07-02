@@ -1,0 +1,68 @@
+:root {
+  /* Cores principais acessíveis */
+  --primary: #2a6f97;         /* Azul petróleo suave - destaque */
+  --primary-dark: #1e4e66;    /* Azul mais profundo - hover */
+  --primary-light: #a9d6e5;   /* Azul claro - elementos secundários */
+
+  /* Fundo e superfícies */
+  --bg-light: #f8f9fa;        /* Fundo geral - cinza quase branco */
+  --dark: #1e1e1e;         /* Para modo escuro opcional */
+  --white: #ffffff;        /* Branco puro para contrastes */
+
+  /* Texto */
+  --text-main: #1c1c1c;       /* Texto principal - quase preto */
+  --text-soft: #4a4a4a;       /* Texto secundário */
+  --text-invert: #ffffff;     /* Texto sobre fundo escuro */
+
+  /* Elementos neutros */
+  --gray-light: #e2e8f0;      /* Bordas e cards */
+  --gray-medium: #cbd5e0;     /* Linhas e preenchimentos sutis */
+
+  /* Alertas e feedbacks */
+  --success: #3b873e;         /* Verde suave acessível */
+  --warning: #f5c542;         /* Amarelo mostarda - aviso */
+  --error: #b00020;           /* Vermelho escuro (visível mesmo pra daltônicos) */
+
+  /* Foco e acessibilidade */
+  --focus-outline: #ffbf47;   /* Amarelo visível para navegação via teclado */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-light);
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--gray-text);
+  font-size: 0.95rem; 
+}
+
+h1, .display-4 { font-size: 2.2rem; }
+h2, .display-5 { font-size: 1.8rem; }
+h3, .display-6 { font-size: 1.5rem; }
+h4 { font-size: 1.2rem; }
+h5 { font-size: 1.1rem; }
+p.lead { font-size: 1.1rem; font-weight: 300; }
+
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  border-radius: 50px;
+  padding: 0.7rem 1.8rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--white);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(30, 78, 102, 0.1);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(30, 78, 102, 0.15);
+}
