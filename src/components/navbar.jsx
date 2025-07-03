@@ -131,8 +131,7 @@ function Navbar() {
       <nav className="navbar navbar-expand-lg navbar-dark">
         <div className="container-fluid">
           <NavLink className="navbar-brand" to="/" onClick={closeMenu}>
-            <img src={logo} alt="Logo PCDev" className="logo" /> PCDev
-          </NavLink>
+            <img src={logo} alt="Logo PCDev" className="logo" /></NavLink>
           <button
             className="navbar-toggler"
             type="button"
@@ -152,13 +151,13 @@ function Navbar() {
                 <NavLink className="nav-link" to="/inclusao" onClick={closeMenu}><i className="bi bi-universal-access me-1"></i>Inclusão</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/cursos" onClick={closeMenu}><i className="bi bi-book me-1"></i>Cursos PCD</NavLink>
+                <NavLink className="nav-link" to="/cursos" onClick={closeMenu}><i className="bi bi-book me-1"></i>Cursos</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/acessibilidade" onClick={closeMenu}><i className="bi bi-heart me-1"></i>Acessibilidade Emocional</NavLink>
+                <NavLink className="nav-link" to="/acessibilidade" onClick={closeMenu}><i className="bi bi-heart me-1"></i>Acessibilidade</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/vagas-pcd" onClick={closeMenu}><i className="bi bi-briefcase me-1"></i>Empregos Acessíveis</NavLink>
+                <NavLink className="nav-link" to="/vagas-pcd" onClick={closeMenu}><i className="bi bi-briefcase me-1"></i>Empregos</NavLink>
               </li>
               
               {isAuthenticated ? (
