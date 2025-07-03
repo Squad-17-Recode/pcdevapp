@@ -10,10 +10,10 @@ import ProtectedRoute from './components/ProtectedRoute';
 // Páginas Públicas
 import HomeP from './pages/HomeP';
 import LoginP from './pages/LoginP';
-import CultureP from './pages/CultureP';
-import CapacitacoesP from './pages/CapacitacoesP';
-import OportunidadesP from './pages/OportunidadesP';
-import BemEstarP from './pages/BemEstarP';
+import InclusaoP from './pages/InclusaoP';
+import CursosP from './pages/CursosP';
+import EmpregosP from './pages/EmpregosP';
+import AcessibilidadeP from './pages/AcessibilidadeP';
 import SobreP from './pages/SobreP';
 
 // Páginas Protegidas
