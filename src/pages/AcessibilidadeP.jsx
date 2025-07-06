@@ -1,11 +1,11 @@
 import React from 'react';
 import '../styles/AcessibilidadeP.css';
 import HeroP from '../components/HeroP';
-import heroImage from '../assets/images/acessibilidade-hero.jpg';
-import librasImage from '../assets/images/libras.jpg';
-import audioImage from '../assets/images/audio.jpg';
-import daltonismoImage from '../assets/images/daltonismo.jpg';
-import acessibilidadeImage from '../assets/images/acessibilidade-geral.jpg';
+import heroImage from '../assets/images/acessibilidade-hero.png';
+import librasImage from '../assets/images/libras.png';
+import audioImage from '../assets/images/audio.png';
+import daltonismoImage from '../assets/images/daltonismo.png';
+import acessibilidadeImage from '../assets/images/acessibilidade-geral.png';
 
 function SupportSection({ image, title, description, link }) {
   return (
