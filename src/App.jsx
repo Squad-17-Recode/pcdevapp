@@ -10,11 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 // Páginas Públicas
 import HomeP from './pages/HomeP';
 import LoginP from './pages/LoginP';
-import InclusaoP from './pages/InclusaoP';
-import CursosP from './pages/CursosP';
-import EmpregosP from './pages/EmpregosP';
 import AcessibilidadeP from './pages/AcessibilidadeP';
-import SobreP from './pages/SobreP';
 
 // Páginas Protegidas
 import AccountSettingsP from './pages/AccountSettingsP';
@@ -37,15 +33,10 @@ function App() {
             {/* ★ ☆ ★ Rotas Públicas ★ ☆ ★ */}
             <Route path="/" element={<HomeP />} />
             <Route path="/login" element={<LoginP />} />
-            <Route path="/inclusao" element={<InclusaoP />} />
-            <Route path="/sobre" element={<SobreP />} />
             <Route path="/acessibilidade" element={<AcessibilidadeP />} />
 
             {/* ★ ☆ ★ Rotas Protegidas (Apenas para usuários logados) ★ ☆ ★ */}
             <Route element={<ProtectedRoute />}>
-              <Route path="/cursos" element={<CursosP />} />
-              <Route path="/empregos" element={<EmpregosP />} />
-              <Route path="/configuracao" element={<ConfiguracaoContaP />} />
             </Route>
 
             {/* ★ ☆ ★ Rotas de Admin (Apenas para usuários com role 'admin') ★ ☆ ★ */}

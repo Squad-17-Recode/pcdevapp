@@ -43,7 +43,7 @@
   z-index: 999;
   background-image: 
     linear-gradient(rgba(255, 247, 237, 0.85), rgba(255, 247, 237, 0.85)),
-    url('https://images.pexels.com/photos/7148593/pexels-photo-7148593.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    url('https://www.pexels.com/pt-br/foto/computador-tela-monitor-programacao-225250');
   background-size: cover;
   background-position: center;
 }
@@ -125,7 +125,7 @@
   transition: transform 0.6s ease-in-out;
   background-image: 
     linear-gradient(to right, var(--primary-dark), var(--primary-light)),
-    url('https://images.pexels.com/photos/4245931/pexels-photo-4245931.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    url('https://www.pexels.com/pt-br/foto/oculos-black-farmed-em-frente-ao-computador-laptop-577585/');
   background-size: cover;
   background-position: center;
   background-blend-mode: overlay;

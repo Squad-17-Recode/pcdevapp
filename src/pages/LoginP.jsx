@@ -33,7 +33,7 @@ function LoginP() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!name.trim()) errors.name = "O nome é obrigatório.";
     if (!emailRegex.test(email)) errors.email = "Formato de e-mail inválido.";
-    if (password.length < 6) errors.password = "A senha deve ter no mínimo 6 caracteres.";
+    if (password.length < 5) errors.password = "A senha deve ter no mínimo 5 caracteres.";
     if (password !== confirmPassword) errors.confirmPassword = "As senhas não coincidem.";
 
     setFormErrors(errors);
@@ -153,9 +153,9 @@ function LoginP() {
         <div className="overlay-container">
             <div className="overlay">
                 <div className="overlay-panel overlay-left">
-                    <h1 className="overlay-title">Bem-vindo de volta!</h1>
+                    <h1 className="overlay-title">Que bom te ver de novo!</h1>
                     <p className="overlay-text">
-                        Para manter-se conectado conosco, faça login com suas informações pessoais
+                        Para continuar com a gente, acesse sua conta com seus dados de login.
                     </p>
                     <button className="overlay-button" onClick={togglePanel}>
                         Entrar
@@ -164,7 +164,7 @@ function LoginP() {
                 <div className="overlay-panel overlay-right">
                     <h1 className="overlay-title">Olá, Amigo!</h1>
                     <p className="overlay-text">
-                        Comece sua jornada conosco criando uma conta com seus dados pessoais
+                        Crie sua conta e venha fazer parte de uma comunidade acessível, diversa e acolhedora.
                     </p>
                     <button className="overlay-button" onClick={togglePanel}>
                         Cadastrar
