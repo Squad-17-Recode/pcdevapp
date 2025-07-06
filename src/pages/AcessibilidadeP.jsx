@@ -85,10 +85,10 @@ function AcessibilidadeP() {
 
       <section className="py-5 bg-primary text-white">
         <div className="container text-center">
-          <h2 className="h3 mb-4">Dificuldade para navegar?</h2>
-          <p className="lead mb-4">Nossa equipe está comprometida em oferecer o melhor suporte possível.</p>
+          <h2 className="h3 mb-4">Precisa de ajuda para navegar?</h2>
+          <p className="lead mb-4">Estamos aqui para garantir que todas as pessoas consigam utilizar nosso site com conforto e autonomia.</p>
           <a href="mailto:acessibilidade@seusite.com" className="btn btn-light btn-lg">
-            <i className="bi bi-envelope me-2"></i>Entrar em Contato
+            <i className="bi bi-envelope me-2"></i>Fale com a nossa equipe
           </a>
         </div>
       </section>
