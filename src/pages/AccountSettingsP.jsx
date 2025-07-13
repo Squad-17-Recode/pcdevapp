@@ -25,7 +25,8 @@ function DeleteConfirmationModal({ isOpen, onClose, onConfirm, isClosing }) {
 function AccountSettingsP() {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
-    
+
+    // Campos comuns
     const [nickname, setNickname] = useState(user?.nickname || '');
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -33,19 +34,32 @@ function AccountSettingsP() {
     const [errors, setErrors] = useState({});
     const [notification, setNotification] = useState('');
 
+    // Campos específicos
+    // Candidato
+    const [cpf, setCpf] = useState(user?.cpf || '');
+    const [bio, setBio] = useState(user?.bio || '');
+    const [tipoDeficiencia, setTipoDeficiencia] = useState(user?.tipoDeficiencia || '');
+    const [habilidades, setHabilidades] = useState(user?.habilidades || []);
+    // Empresa
+    const [cnpj, setCnpj] = useState(user?.cnpj || '');
+    const [descricao, setDescricao] = useState(user?.descricao || '');
+    const [rangeFuncionarios, setRangeFuncionarios] = useState(user?.rangeFuncionarios || '');
+
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isModalClosing, setIsModalClosing] = useState(false);
 
     if (!user) {
         return <p className="text-center p-5">Você precisa estar logado para ver esta página.</p>;
     }
-    
+
     const showNotification = (message) => {
         setNotification(message);
     };
 
+    // Atualiza perfil conforme role
     const handleProfileUpdate = (e) => {
         e.preventDefault();
+        // Aqui você pode enviar os dados específicos para o backend
         showNotification('Perfil atualizado com sucesso!');
     };
 
@@ -107,7 +121,7 @@ function AccountSettingsP() {
             />
 
             <h2 className="mb-5 text-center">Gerenciar Conta</h2>
-            
+
             <div className="row">
                 <div className="col-lg-8 mx-auto">
                     {/* Card de Informações do Perfil */}
@@ -118,9 +132,9 @@ function AccountSettingsP() {
                         <div className="card-body">
                             <form onSubmit={handleProfileUpdate}>
                                 <div className="d-flex align-items-center mb-4">
-                                    <img src={user.profilePicture} alt="Perfil" className="settings-profile-pic" />
+                                    <img src={user.fotoPerfil || user.profilePicture} alt="Perfil" className="settings-profile-pic" />
                                     <div className="ms-3">
-                                        <h5 className="card-title mb-1">{user.name}</h5>
+                                        <h5 className="card-title mb-1">{user.nome || user.name}</h5>
                                         <button type="button" className="btn btn-sm btn-outline-secondary">Alterar foto</button>
                                     </div>
                                 </div>
@@ -135,6 +149,43 @@ function AccountSettingsP() {
                                         placeholder="Como você quer ser chamado?"
                                     />
                                 </div>
+                                {/* Campos específicos por tipo de conta */}
+                                {user.role === 'CANDIDATO' && (
+                                    <>
+                                        <div className="mb-3">
+                                            <label htmlFor="cpf" className="form-label">CPF</label>
+                                            <input type="text" className="form-control" id="cpf" value={cpf} onChange={e => setCpf(e.target.value)} maxLength={11} />
+                                        </div>
+                                        <div className="mb-3">
+                                            <label htmlFor="bio" className="form-label">Bio</label>
+                                            <textarea className="form-control" id="bio" value={bio} onChange={e => setBio(e.target.value)} maxLength={250} />
+                                        </div>
+                                        <div className="mb-3">
+                                            <label htmlFor="tipoDeficiencia" className="form-label">Tipo de Deficiência</label>
+                                            <input type="text" className="form-control" id="tipoDeficiencia" value={tipoDeficiencia} onChange={e => setTipoDeficiencia(e.target.value)} />
+                                        </div>
+                                        <div className="mb-3">
+                                            <label htmlFor="habilidades" className="form-label">Habilidades</label>
+                                            <input type="text" className="form-control" id="habilidades" value={habilidades.join(', ')} readOnly />
+                                        </div>
+                                    </>
+                                )}
+                                {user.role === 'EMPRESA' && (
+                                    <>
+                                        <div className="mb-3">
+                                            <label htmlFor="cnpj" className="form-label">CNPJ</label>
+                                            <input type="text" className="form-control" id="cnpj" value={cnpj} onChange={e => setCnpj(e.target.value)} />
+                                        </div>
+                                        <div className="mb-3">
+                                            <label htmlFor="descricao" className="form-label">Descrição</label>
+                                            <textarea className="form-control" id="descricao" value={descricao} onChange={e => setDescricao(e.target.value)} maxLength={250} />
+                                        </div>
+                                        <div className="mb-3">
+                                            <label htmlFor="rangeFuncionarios" className="form-label">Range de Funcionários</label>
+                                            <input type="text" className="form-control" id="rangeFuncionarios" value={rangeFuncionarios} onChange={e => setRangeFuncionarios(e.target.value)} />
+                                        </div>
+                                    </>
+                                )}
                                 <button type="submit" className="btn btn-primary">Salvar Alterações</button>
                             </form>
                         </div>
