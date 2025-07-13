@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import ToastNotification from '../components/ToastNotification';
+import { useState } from 'react';
+import ToastNotification from '../components/toast-notification/ToastNotification';
 
 // Simulação de dados de usuários que futuramente serão do banco de dados
 const initialUsers = [
@@ -35,7 +35,7 @@ function ManageUsersP() {
   };
 
   const handleRoleChange = (userId, newRole) => {
-    setUsers(users.map(user => 
+    setUsers(users.map(user =>
         user.id === userId ? { ...user, role: newRole } : user
     ));
     showNotification('Cargo do usuário alterado com sucesso!');
@@ -44,9 +44,9 @@ function ManageUsersP() {
   return (
     <div>
       {notification.message && (
-        <ToastNotification 
-          message={notification.message} 
-          type={notification.type} 
+        <ToastNotification
+          message={notification.message}
+          type={notification.type}
           onClose={() => setNotification({ message: '', type: '' })}
         />
       )}
@@ -73,8 +73,8 @@ function ManageUsersP() {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>
-                                    <select 
-                                        className={`form-select form-select-sm ${user.role === 'admin' ? 'fw-bold' : ''}`} 
+                                    <select
+                                        className={`form-select form-select-sm ${user.role === 'admin' ? 'fw-bold' : ''}`}
                                         value={user.role}
                                         onChange={(e) => handleRoleChange(user.id, e.target.value)}
                                         style={{ width: '120px' }}
@@ -84,13 +84,13 @@ function ManageUsersP() {
                                     </select>
                                 </td>
                                 <td className="text-end">
-                                    <button 
+                                    <button
                                         className="btn btn-sm btn-outline-secondary me-2"
                                         onClick={() => handleResetPassword(user.name)}
                                     >
                                         Resetar Senha
                                     </button>
-                                    <button 
+                                    <button
                                         className="btn btn-sm btn-outline-danger"
                                         onClick={() => handleDeleteUser(user.id, user.name)}
                                     >

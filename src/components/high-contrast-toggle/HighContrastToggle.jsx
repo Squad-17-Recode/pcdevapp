@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
-import '../styles/high-contrast.css';
+import { useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import '../../styles/high-contrast.css';
 
 function HighContrastToggle() {
   const { highContrast, toggleHighContrast } = useAuth();
@@ -18,6 +18,7 @@ function HighContrastToggle() {
 
   return (
     <button
+      type="button"
       className="high-contrast-toggle"
       style={{
         position: 'fixed',
@@ -41,8 +42,9 @@ function HighContrastToggle() {
       onClick={toggleHighContrast}
       title={highContrast ? 'Desativar alto contraste' : 'Ativar alto contraste'}
     >
-      <span aria-label="Alto contraste" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+      <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
         <svg width="32" height="32" viewBox="0 0 32 32" style={{ display: 'block', margin: 'auto' }}>
+          <title>Ícone de alto contraste</title>
           <defs>
             <linearGradient id="contrast-circle" x1="0" y1="0" x2="32" y2="0" gradientUnits="userSpaceOnUse">
               <stop offset="50%" stopColor="#fff" />

@@ -1,4 +1,3 @@
-import React from 'react';
 import '../styles/hero.css';
 import heroImage from '../assets/images/pcd.png';
 
@@ -8,7 +7,7 @@ function Hero() {
   };
 
   return (
-    <section className="hero" style={heroStyle} role="region" aria-label="Seção de destaque PCDev">
+    <section className="hero" style={heroStyle} aria-label="Seção de destaque PCDev">
       <div className="hero-overlay" aria-hidden="true"></div>
       <div className="container h-100">
         <div className="row h-100 align-items-center">

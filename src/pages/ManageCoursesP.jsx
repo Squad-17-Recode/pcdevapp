@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import ToastNotification from '../components/ToastNotification'; 
+import { useState } from 'react';
+import ToastNotification from '../components/toast-notification/ToastNotification';
 
 // Simulação dos dados iniciais de cursos
 const initialCourses = [
@@ -15,7 +15,7 @@ const initialCourses = [
 
 function ManageCoursesP() {
   const [courses, setCourses] = useState(initialCourses);
-  
+
   // Estados para os campos do formulário
   const [editingCourse, setEditingCourse] = useState(null);
   const [title, setTitle] = useState('');
@@ -37,7 +37,7 @@ function ManageCoursesP() {
     if (!title.trim()) errors.title = 'O título do curso é obrigatório.';
     if (!category.trim()) errors.category = 'A categoria é obrigatória.';
     if (!description.trim()) errors.description = 'A descrição é obrigatória.';
-    
+
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -56,7 +56,7 @@ function ManageCoursesP() {
     if (!validateForm()) return;
 
     if (editingCourse) {
-      const updatedCourses = courses.map(course => 
+      const updatedCourses = courses.map(course =>
         course.id === editingCourse.id ? { ...course, title, category, description } : course
       );
       setCourses(updatedCourses);
@@ -71,7 +71,7 @@ function ManageCoursesP() {
       setCourses([...courses, newCourse]);
       showNotification('Novo curso adicionado com sucesso!');
     }
-    
+
     resetForm();
   };
 
@@ -96,9 +96,9 @@ function ManageCoursesP() {
   return (
     <div>
       {notification.message && (
-        <ToastNotification 
-          message={notification.message} 
-          type={notification.type} 
+        <ToastNotification
+          message={notification.message}
+          type={notification.type}
           onClose={() => setNotification({ message: '', type: '' })}
         />
       )}
@@ -106,9 +106,10 @@ function ManageCoursesP() {
       <h4 className="mb-4">{editingCourse ? 'Editando Curso' : 'Adicionar Novo Curso'}</h4>
       <form onSubmit={handleSubmit} className="card p-3 mb-4" noValidate>
         <div className="mb-3">
-            <label className="form-label">Título do Curso</label>
-            <input 
-                type="text" 
+            <label htmlFor="course-title" className="form-label">Título do Curso</label>
+            <input
+                id="course-title"
+                type="text"
                 className={`form-control ${formErrors.title ? 'is-invalid' : ''}`}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -116,21 +117,23 @@ function ManageCoursesP() {
             {formErrors.title && <div className="invalid-feedback">{formErrors.title}</div>}
         </div>
         <div className="mb-3">
-            <label className="form-label">Categoria</label>
-            <input 
-                type="text" 
+            <label htmlFor="course-category" className="form-label">Categoria</label>
+            <input
+                id="course-category"
+                type="text"
                 className={`form-control ${formErrors.category ? 'is-invalid' : ''}`}
-                placeholder="Ex: Tecnologia, Negócios..." 
+                placeholder="Ex: Tecnologia, Negócios..."
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
             />
             {formErrors.category && <div className="invalid-feedback">{formErrors.category}</div>}
         </div>
         <div className="mb-3">
-            <label className="form-label">Descrição Curta</label>
-            <textarea 
+            <label htmlFor="course-description" className="form-label">Descrição Curta</label>
+            <textarea
+                id="course-description"
                 className={`form-control ${formErrors.description ? 'is-invalid' : ''}`}
-                rows="3" 
+                rows="3"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
             ></textarea>
@@ -156,8 +159,8 @@ function ManageCoursesP() {
           <li key={course.id} className="list-group-item d-flex justify-content-between align-items-center">
             <span>{course.title} - <strong>{course.category}</strong></span>
             <div>
-              <button className="btn btn-sm btn-outline-secondary me-2" onClick={() => handleEdit(course)}>Editar</button>
-              <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(course.id)}>Excluir</button>
+              <button type="button" className="btn btn-sm btn-outline-secondary me-2" onClick={() => handleEdit(course)}>Editar</button>
+              <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(course.id)}>Excluir</button>
             </div>
           </li>
         ))}

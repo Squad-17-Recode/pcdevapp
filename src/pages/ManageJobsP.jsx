@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import ToastNotification from '../components/ToastNotification';
+import { useState } from 'react';
+import ToastNotification from '../components/toast-notification/ToastNotification';
 
 // Dados mockados no formato da classe Vaga do backend
 const initialJobs = [
@@ -128,9 +128,9 @@ function ManageJobsP() {
   return (
     <div className={document.body.classList.contains('high-contrast') ? 'high-contrast' : ''}>
       {notification.message && (
-        <ToastNotification 
-          message={notification.message} 
-          type={notification.type} 
+        <ToastNotification
+          message={notification.message}
+          type={notification.type}
           onClose={() => setNotification({ message: '', type: '' })}
         />
       )}
@@ -138,9 +138,10 @@ function ManageJobsP() {
       <h4 className="mb-4">{editingJob ? 'Editando Vaga' : 'Adicionar Nova Vaga'}</h4>
       <form onSubmit={handleSubmit} className="card p-3 mb-4">
         <div className="mb-3">
-          <label className="form-label">Nome do Cargo</label>
+          <label className="form-label" htmlFor="nomeCargo">Nome do Cargo</label>
           <input
             type="text"
+            id="nomeCargo"
             className={`form-control ${formErrors.nomeCargo ? 'is-invalid' : ''}`}
             value={nomeCargo}
             onChange={e => setNomeCargo(e.target.value)}
@@ -148,9 +149,10 @@ function ManageJobsP() {
           {formErrors.nomeCargo && <div className="invalid-feedback">{formErrors.nomeCargo}</div>}
         </div>
         <div className="mb-3">
-          <label className="form-label">Empresa</label>
+          <label className="form-label" htmlFor="empresaNome">Empresa</label>
           <input
             type="text"
+            id="empresaNome"
             className={`form-control ${formErrors.empresaNome ? 'is-invalid' : ''}`}
             value={empresaNome}
             onChange={e => setEmpresaNome(e.target.value)}
@@ -158,34 +160,37 @@ function ManageJobsP() {
           {formErrors.empresaNome && <div className="invalid-feedback">{formErrors.empresaNome}</div>}
         </div>
         <div className="mb-3">
-          <label className="form-label">Descrição</label>
+          <label className="form-label" htmlFor="descricao">Descrição</label>
           <input
             type="text"
+            id="descricao"
             className="form-control"
             value={descricao}
             onChange={e => setDescricao(e.target.value)}
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Logo da Empresa (URL)</label>
+          <label className="form-label" htmlFor="logoEmpresa">Logo da Empresa (URL)</label>
           <input
             type="text"
+            id="logoEmpresa"
             className="form-control"
             value={logoEmpresa}
             onChange={e => setLogoEmpresa(e.target.value)}
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Status da Vaga</label>
-          <select className="form-select" value={statusVaga} onChange={e => setStatusVaga(e.target.value === 'true')}>
+          <label className="form-label" htmlFor="statusVaga">Status da Vaga</label>
+          <select className="form-select" id="statusVaga" value={statusVaga} onChange={e => setStatusVaga(e.target.value === 'true')}>
             <option value="true">Ativa</option>
             <option value="false">Inativa</option>
           </select>
         </div>
         <div className="mb-3">
-          <label className="form-label">Data Fim da Candidatura</label>
+          <label className="form-label" htmlFor="dataFimCandidatura">Data Fim da Candidatura</label>
           <input
             type="date"
+            id="dataFimCandidatura"
             className={`form-control ${formErrors.dataFimCandidatura ? 'is-invalid' : ''}`}
             value={dataFimCandidatura}
             onChange={e => setDataFimCandidatura(e.target.value)}
@@ -193,9 +198,10 @@ function ManageJobsP() {
           {formErrors.dataFimCandidatura && <div className="invalid-feedback">{formErrors.dataFimCandidatura}</div>}
         </div>
         <div className="mb-3">
-          <label className="form-label">Data Fim da Última Etapa</label>
+          <label className="form-label" htmlFor="dataFimUltimaEtapa">Data Fim da Última Etapa</label>
           <input
             type="date"
+            id="dataFimUltimaEtapa"
             className={`form-control ${formErrors.dataFimUltimaEtapa ? 'is-invalid' : ''}`}
             value={dataFimUltimaEtapa}
             onChange={e => setDataFimUltimaEtapa(e.target.value)}
@@ -203,9 +209,10 @@ function ManageJobsP() {
           {formErrors.dataFimUltimaEtapa && <div className="invalid-feedback">{formErrors.dataFimUltimaEtapa}</div>}
         </div>
         <div className="mb-3">
-          <label className="form-label">Tags (separadas por vírgula)</label>
+          <label className="form-label" htmlFor="tags">Tags (separadas por vírgula)</label>
           <input
             type="text"
+            id="tags"
             className="form-control"
             value={tags}
             onChange={e => setTags(e.target.value)}
@@ -239,8 +246,8 @@ function ManageJobsP() {
               </small>
             </span>
             <div>
-              <button className="btn btn-sm btn-outline-secondary me-2" onClick={() => handleEdit(job)}>Editar</button>
-              <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(job.id)}>Excluir</button>
+              <button type="button" className="btn btn-sm btn-outline-secondary me-2" onClick={() => handleEdit(job)}>Editar</button>
+              <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(job.id)}>Excluir</button>
             </div>
           </li>
         ))}

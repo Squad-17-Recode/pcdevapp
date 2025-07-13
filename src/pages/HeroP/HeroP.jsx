@@ -1,6 +1,5 @@
-import React from 'react';
-import { useAuth } from '../context/AuthContext';
-import '../styles/HeroP.css';
+import { useAuth } from '../../context/AuthContext';
+import '../../styles/HeroP.css';
 
 function HeroP({ title, subtitle, image }) {
   const { highContrast } = useAuth();

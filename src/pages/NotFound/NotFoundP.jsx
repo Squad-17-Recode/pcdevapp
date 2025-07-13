@@ -1,6 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/NotFoundP.css';
+import '../../styles/NotFoundP.css'
 
 
 function NotFoundP() {

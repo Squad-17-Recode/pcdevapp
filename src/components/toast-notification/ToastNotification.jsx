@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import '../styles/ToastNotification.css';
+import { useEffect } from 'react';
+import '../../styles/ToastNotification.css';
 
 function ToastNotification({ message, type = 'success', onClose }) {
   useEffect(() => {
@@ -17,7 +17,7 @@ function ToastNotification({ message, type = 'success', onClose }) {
     <div className={`toast-notification ${typeClass}`}>
       <i className={`bi ${iconClass} me-2`}></i>
       <span>{message}</span>
-      <button onClick={onClose} className="toast-close-btn">&times;</button>
+      <button type="button" onClick={onClose} className="toast-close-btn">&times;</button>
     </div>
   );
 }
