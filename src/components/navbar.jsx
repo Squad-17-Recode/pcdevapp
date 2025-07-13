@@ -154,9 +154,6 @@ function Navbar() {
                 <NavLink className="nav-link" to="/cursos" onClick={closeMenu}><i className="bi bi-book me-1"></i>Cursos</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/acessibilidade" onClick={closeMenu}><i className="bi bi-heart me-1"></i>Acessibilidade</NavLink>
-              </li>
-              <li className="nav-item">
                 <NavLink className="nav-link" to="/vagas-pcd" onClick={closeMenu}><i className="bi bi-briefcase me-1"></i>Empregos</NavLink>
               </li>
               
