@@ -16,6 +16,10 @@
     color: #fff !important;
     border-color: #fff !important;
   }
+/* Corrige cor dos títulos das seções em AccountSettingsP */
+.high-contrast .settings-card .card-header h5 {
+  color: #000 !important; /* Amarelo para alto contraste */
+}
 .high-contrast .row,
 .high-contrast .col-lg-6,
 .high-contrast .col-md-4 {
