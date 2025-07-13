@@ -91,7 +91,7 @@ function LoginP() {
   }
 
   return (
-    <div className="login-app">
+    <div className={`login-app${document.body.classList.contains('high-contrast') ? ' high-contrast' : ''}`}> 
       {notification.message && (
         <ToastNotification 
           message={notification.message} 

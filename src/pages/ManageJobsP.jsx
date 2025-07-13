@@ -1,33 +1,45 @@
 import React, { useState } from 'react';
 import ToastNotification from '../components/ToastNotification';
 
-// Dados iniciais reais
+// Dados mockados no formato da classe Vaga do backend
 const initialJobs = [
-  { id: 1, title: 'Desenvolvedor Front-End React', company: 'iFood', location: 'Osasco, SP' },
-  { id: 2, title: 'Engenheiro de Software Back-End', company: 'Nubank', location: 'São Paulo, SP' },
-  { id: 3, title: 'Analista de Suporte Técnico', company: 'Claro Brasil', location: 'Rio de Janeiro, RJ' },
-  { id: 4, title: 'UX/UI Designer', company: 'Grupo Boticário', location: 'Curitiba, PR' },
-  { id: 5, title: 'Cientista de Dados', company: 'Magazine Luiza', location: 'Franca, SP' },
-  { id: 6, title: 'Desenvolvedor Mobile Flutter', company: 'PicPay', location: 'Vitória, ES' },
-  { id: 7, title: 'Product Manager (PM)', company: 'Mercado Livre', location: 'São Paulo, SP' },
-  { id: 8, title: 'Engenheiro de DevOps', company: 'Stone Pagamentos', location: 'Belo Horizonte, MG' },
-  { id: 9, title: 'Analista de BI (Business Intelligence)', company: 'Vivo Telefônica', location: 'São Paulo, SP' },
-  { id: 10, title: 'Tech Recruiter', company: 'XP Inc.', location: 'São Paulo, SP' },
-  { id: 11, title: 'Desenvolvedor Java Pleno', company: 'Globo', location: 'Rio de Janeiro, RJ' },
-  { id: 12, title: 'Analista de Segurança da Informação', company: 'Porto Seguro', location: 'São Paulo, SP' },
-  { id: 13, title: 'Desenvolvedor Full Stack', company: 'CI&T', location: 'Campinas, SP' },
-  { id: 14, title: 'Arquiteto de Software', company: 'BRQ Digital Solutions', location: 'São Paulo, SP' },
-  { id: 15, title: 'Estagiário de TI', company: 'TOTVS', location: 'São Paulo, SP' }
+  {
+    id: '1a2b3c4d-0000-0000-0000-000000000001',
+    empresa: { nome: 'iFood' },
+    nomeCargo: 'Desenvolvedor Front-End React',
+    descricao: 'Desenvolvimento de interfaces web com React.',
+    logoEmpresa: '',
+    statusVaga: true,
+    dataFimCandidatura: '2025-07-31',
+    dataFimUltimaEtapa: '2025-08-15',
+    tags: ['React', 'Front-End', 'Web']
+  },
+  {
+    id: '1a2b3c4d-0000-0000-0000-000000000002',
+    empresa: { nome: 'Nubank' },
+    nomeCargo: 'Engenheiro de Software Back-End',
+    descricao: 'Desenvolvimento de APIs e microsserviços.',
+    logoEmpresa: '',
+    statusVaga: true,
+    dataFimCandidatura: '2025-07-25',
+    dataFimUltimaEtapa: '2025-08-10',
+    tags: ['Java', 'Spring', 'Back-End']
+  }
+  // ...adicione mais mock se quiser
 ];
 
 
 function ManageJobsP() {
   const [jobs, setJobs] = useState(initialJobs);
-  
   const [editingJob, setEditingJob] = useState(null);
-  const [title, setTitle] = useState('');
-  const [company, setCompany] = useState('');
-  const [location, setLocation] = useState('');
+  const [nomeCargo, setNomeCargo] = useState('');
+  const [empresaNome, setEmpresaNome] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [logoEmpresa, setLogoEmpresa] = useState('');
+  const [statusVaga, setStatusVaga] = useState(true);
+  const [dataFimCandidatura, setDataFimCandidatura] = useState('');
+  const [dataFimUltimaEtapa, setDataFimUltimaEtapa] = useState('');
+  const [tags, setTags] = useState(''); // string separada por vírgula
 
   const [notification, setNotification] = useState({ message: '', type: '' });
   const [formErrors, setFormErrors] = useState({});
@@ -39,10 +51,10 @@ function ManageJobsP() {
   // Função para validar o formulário antes de enviar
   const validateForm = () => {
     const errors = {};
-    if (!title.trim()) errors.title = 'O título da vaga é obrigatório.';
-    if (!company.trim()) errors.company = 'O nome da empresa é obrigatório.';
-    if (!location.trim()) errors.location = 'A localização é obrigatória.';
-    
+    if (!nomeCargo.trim()) errors.nomeCargo = 'O nome do cargo é obrigatório.';
+    if (!empresaNome.trim()) errors.empresaNome = 'O nome da empresa é obrigatório.';
+    if (!dataFimCandidatura.trim()) errors.dataFimCandidatura = 'Data fim da candidatura é obrigatória.';
+    if (!dataFimUltimaEtapa.trim()) errors.dataFimUltimaEtapa = 'Data fim da última etapa é obrigatória.';
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -50,9 +62,14 @@ function ManageJobsP() {
   // Limpa o formulário e reseta o estado de edição
   const resetForm = () => {
     setEditingJob(null);
-    setTitle('');
-    setCompany('');
-    setLocation('');
+    setNomeCargo('');
+    setEmpresaNome('');
+    setDescricao('');
+    setLogoEmpresa('');
+    setStatusVaga(true);
+    setDataFimCandidatura('');
+    setDataFimUltimaEtapa('');
+    setTags('');
     setFormErrors({});
   };
 
@@ -61,43 +78,55 @@ function ManageJobsP() {
     e.preventDefault();
     if (!validateForm()) return;
 
+    const vagaObj = {
+      id: editingJob ? editingJob.id : Date.now().toString(),
+      empresa: { nome: empresaNome },
+      nomeCargo,
+      descricao,
+      logoEmpresa,
+      statusVaga,
+      dataFimCandidatura,
+      dataFimUltimaEtapa,
+      tags: tags.split(',').map(tag => tag.trim()).filter(tag => tag)
+    };
+
     if (editingJob) {
-      // Lógica de ATUALIZAÇÃO
-      const updatedJobs = jobs.map(job => 
-        job.id === editingJob.id ? { ...job, title, company, location } : job
-      );
+      const updatedJobs = jobs.map(job => job.id === editingJob.id ? vagaObj : job);
       setJobs(updatedJobs);
       showNotification('Vaga atualizada com sucesso!');
     } else {
-      const newJob = { id: Date.now(), title, company, location };
-      setJobs([...jobs, newJob]);
+      setJobs([...jobs, vagaObj]);
       showNotification('Nova vaga adicionada com sucesso!');
     }
-    
     resetForm();
   };
 
   // Prepara o formulário para edição
   const handleEdit = (job) => {
     setEditingJob(job);
-    setTitle(job.title);
-    setCompany(job.company);
-    setLocation(job.location);
+    setNomeCargo(job.nomeCargo);
+    setEmpresaNome(job.empresa?.nome || '');
+    setDescricao(job.descricao || '');
+    setLogoEmpresa(job.logoEmpresa || '');
+    setStatusVaga(job.statusVaga);
+    setDataFimCandidatura(job.dataFimCandidatura);
+    setDataFimUltimaEtapa(job.dataFimUltimaEtapa);
+    setTags(job.tags ? job.tags.join(', ') : '');
     setFormErrors({});
   };
 
   // Exclui uma vaga
   const handleDelete = (jobId) => {
     if (window.confirm('Tem certeza que deseja excluir esta vaga?')) {
-        const updatedJobs = jobs.filter(job => job.id !== jobId);
-        setJobs(updatedJobs);
-        showNotification('Vaga excluída com sucesso!', 'error');
+      const updatedJobs = jobs.filter(job => job.id !== jobId);
+      setJobs(updatedJobs);
+      showNotification('Vaga excluída com sucesso!', 'error');
     }
   };
 
 
   return (
-    <div>
+    <div className={document.body.classList.contains('high-contrast') ? 'high-contrast' : ''}>
       {notification.message && (
         <ToastNotification 
           message={notification.message} 
@@ -109,44 +138,88 @@ function ManageJobsP() {
       <h4 className="mb-4">{editingJob ? 'Editando Vaga' : 'Adicionar Nova Vaga'}</h4>
       <form onSubmit={handleSubmit} className="card p-3 mb-4">
         <div className="mb-3">
-            <label className="form-label">Título da Vaga</label>
-            <input 
-                type="text" 
-                className={`form-control ${formErrors.title ? 'is-invalid' : ''}`}
-                value={title} 
-                onChange={(e) => setTitle(e.target.value)} 
-            />
-            {formErrors.title && <div className="invalid-feedback">{formErrors.title}</div>}
+          <label className="form-label">Nome do Cargo</label>
+          <input
+            type="text"
+            className={`form-control ${formErrors.nomeCargo ? 'is-invalid' : ''}`}
+            value={nomeCargo}
+            onChange={e => setNomeCargo(e.target.value)}
+          />
+          {formErrors.nomeCargo && <div className="invalid-feedback">{formErrors.nomeCargo}</div>}
         </div>
         <div className="mb-3">
-            <label className="form-label">Empresa</label>
-            <input 
-                type="text" 
-                className={`form-control ${formErrors.company ? 'is-invalid' : ''}`}
-                value={company}
-                onChange={(e) => setCompany(e.target.value)}
-            />
-             {formErrors.company && <div className="invalid-feedback">{formErrors.company}</div>}
+          <label className="form-label">Empresa</label>
+          <input
+            type="text"
+            className={`form-control ${formErrors.empresaNome ? 'is-invalid' : ''}`}
+            value={empresaNome}
+            onChange={e => setEmpresaNome(e.target.value)}
+          />
+          {formErrors.empresaNome && <div className="invalid-feedback">{formErrors.empresaNome}</div>}
         </div>
         <div className="mb-3">
-            <label className="form-label">Localização</label>
-            <input 
-                type="text" 
-                className={`form-control ${formErrors.location ? 'is-invalid' : ''}`}
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-            />
-            {formErrors.location && <div className="invalid-feedback">{formErrors.location}</div>}
+          <label className="form-label">Descrição</label>
+          <input
+            type="text"
+            className="form-control"
+            value={descricao}
+            onChange={e => setDescricao(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Logo da Empresa (URL)</label>
+          <input
+            type="text"
+            className="form-control"
+            value={logoEmpresa}
+            onChange={e => setLogoEmpresa(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Status da Vaga</label>
+          <select className="form-select" value={statusVaga} onChange={e => setStatusVaga(e.target.value === 'true')}>
+            <option value="true">Ativa</option>
+            <option value="false">Inativa</option>
+          </select>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Data Fim da Candidatura</label>
+          <input
+            type="date"
+            className={`form-control ${formErrors.dataFimCandidatura ? 'is-invalid' : ''}`}
+            value={dataFimCandidatura}
+            onChange={e => setDataFimCandidatura(e.target.value)}
+          />
+          {formErrors.dataFimCandidatura && <div className="invalid-feedback">{formErrors.dataFimCandidatura}</div>}
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Data Fim da Última Etapa</label>
+          <input
+            type="date"
+            className={`form-control ${formErrors.dataFimUltimaEtapa ? 'is-invalid' : ''}`}
+            value={dataFimUltimaEtapa}
+            onChange={e => setDataFimUltimaEtapa(e.target.value)}
+          />
+          {formErrors.dataFimUltimaEtapa && <div className="invalid-feedback">{formErrors.dataFimUltimaEtapa}</div>}
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Tags (separadas por vírgula)</label>
+          <input
+            type="text"
+            className="form-control"
+            value={tags}
+            onChange={e => setTags(e.target.value)}
+          />
         </div>
         <div className="d-flex align-items-center mt-2">
-            <button type="submit" className="btn btn-primary align-self-start">
-                {editingJob ? 'Salvar Alterações' : 'Salvar Nova Vaga'}
+          <button type="submit" className="btn btn-primary align-self-start">
+            {editingJob ? 'Salvar Alterações' : 'Salvar Nova Vaga'}
+          </button>
+          {editingJob && (
+            <button type="button" className="btn btn-secondary ms-2" onClick={resetForm}>
+              Cancelar Edição
             </button>
-            {editingJob && (
-                <button type="button" className="btn btn-secondary ms-2" onClick={resetForm}>
-                    Cancelar Edição
-                </button>
-            )}
+          )}
         </div>
       </form>
 
@@ -156,7 +229,15 @@ function ManageJobsP() {
       <ul className="list-group">
         {jobs.map(job => (
           <li key={job.id} className="list-group-item d-flex justify-content-between align-items-center">
-            <span>{job.title} - <strong>{job.company}</strong> ({job.location})</span>
+            <span>
+              <strong>{job.nomeCargo}</strong> - {job.empresa?.nome}
+              {job.descricao && <> | <em>{job.descricao}</em></>}
+              <br />
+              <small>
+                Status: {job.statusVaga ? 'Ativa' : 'Inativa'} | Fim Candidatura: {job.dataFimCandidatura} | Fim Última Etapa: {job.dataFimUltimaEtapa}
+                {job.tags && job.tags.length > 0 && <> | Tags: {job.tags.join(', ')}</>}
+              </small>
+            </span>
             <div>
               <button className="btn btn-sm btn-outline-secondary me-2" onClick={() => handleEdit(job)}>Editar</button>
               <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(job.id)}>Excluir</button>

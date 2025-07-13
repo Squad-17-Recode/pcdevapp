@@ -91,7 +91,7 @@ function AccountSettingsP() {
     };
 
     return (
-        <div className="account-settings-container container py-5">
+        <div className={`account-settings-container container py-5${document.body.classList.contains('high-contrast') ? ' high-contrast' : ''}`}>
             {notification && (
                 <ToastNotification 
                     message={notification} 

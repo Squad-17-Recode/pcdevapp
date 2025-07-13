@@ -4,7 +4,7 @@ import '../styles/NotFoundP.css';
 
 function NotFoundP() {
   return (
-    <div className="not-found-container">
+    <div className={`not-found-container${document.body.classList.contains('high-contrast') ? ' high-contrast' : ''}`}> 
       <div className="not-found-content">
         <h1 className="not-found-title">404</h1>
         <p className="not-found-subtitle">Oops! Página não encontrada.</p>

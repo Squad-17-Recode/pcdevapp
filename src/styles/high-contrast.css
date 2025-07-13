@@ -7,7 +7,15 @@
 .high-contrast .btn,
 .high-contrast .navbar,
 .high-contrast .card,
-.high-contrast .container,
+  .high-contrast .container,
+  .high-contrast footer,
+  .high-contrast .footer-links,
+  .high-contrast .footer-links a,
+  .high-contrast .copyright-text {
+    background-color: #000 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+  }
 .high-contrast .row,
 .high-contrast .col-lg-6,
 .high-contrast .col-md-4 {

@@ -4,7 +4,7 @@ import '../styles/AdminDashboardP.css';
 
 function AdminDashboardP() {
   return (
-    <div className="admin-dashboard-layout">
+    <div className={`admin-dashboard-layout${document.body.classList.contains('high-contrast') ? ' high-contrast' : ''}`}> 
       <aside className="admin-sidebar">
         <h3 className="admin-sidebar-title">Painel Admin</h3>
         <nav className="admin-nav">
