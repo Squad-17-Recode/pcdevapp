@@ -35,6 +35,7 @@ function App() {
             {/* ★ ☆ ★ Rotas Públicas ★ ☆ ★ */}
             <Route path="/" element={<HomeP />} />
             <Route path="/login" element={<LoginP />} />
+            <Route path="/acessibilidade" element={<AcessibilidadeP />} />
 
             {/* ★ ☆ ★ Rotas Protegidas (Apenas para usuários logados) ★ ☆ ★ */}
             <Route element={<ProtectedRoute />}>

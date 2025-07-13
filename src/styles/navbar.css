@@ -58,6 +58,7 @@
 .profile-picture {
     width: 42px;
     height: 42px;
+    aspect-ratio: 1/1;
     border-radius: 50%;
     border: 2px solid var(--primary-light);
     object-fit: cover;

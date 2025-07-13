@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 import '../styles/high-contrast.css';
 
 function HighContrastToggle() {
-  const [highContrast, setHighContrast] = useState(false);
+  const { highContrast, toggleHighContrast } = useAuth();
 
   useEffect(() => {
     if (highContrast) {
@@ -37,7 +38,7 @@ function HighContrastToggle() {
       }}
       aria-pressed={highContrast}
       aria-label={highContrast ? 'Desativar alto contraste' : 'Ativar alto contraste'}
-      onClick={() => setHighContrast((prev) => !prev)}
+      onClick={toggleHighContrast}
       title={highContrast ? 'Desativar alto contraste' : 'Ativar alto contraste'}
     >
       <span aria-label="Alto contraste" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>

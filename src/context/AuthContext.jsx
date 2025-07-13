@@ -5,6 +5,7 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [highContrast, setHighContrast] = useState(false);
 
   useEffect(() => {
     const token = sessionStorage.getItem('authToken');
@@ -24,7 +25,17 @@ export const AuthProvider = ({ children }) => {
         sessionStorage.removeItem('authToken');
       }
     }
+    // Recupera preferência de alto contraste do localStorage
+    const hc = localStorage.getItem('highContrast');
+    if (hc === 'true') setHighContrast(true);
   }, []);
+  // Alterna o modo alto contraste e salva no localStorage
+  const toggleHighContrast = () => {
+    setHighContrast(prev => {
+      localStorage.setItem('highContrast', !prev);
+      return !prev;
+    });
+  };
 
   // Modo mock: se MOCK_LOGIN=true, simula login sem backend
   const MOCK_LOGIN = true; // Altere para false para usar o backend
@@ -90,7 +101,9 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated: !!user,
     isAdmin: user?.role === 'admin',
     login,
-    logout
+    logout,
+    highContrast,
+    toggleHighContrast
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

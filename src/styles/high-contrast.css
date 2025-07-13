@@ -1,7 +1,7 @@
 /* Alto contraste para acessibilidade */
 .high-contrast {
-  background-color: #000 !important;
-  color: #fff !important;
+  background-color: #000;
+  color: #fff;
 }
 .high-contrast a,
 .high-contrast .btn,
@@ -12,26 +12,26 @@
   .high-contrast .footer-links,
   .high-contrast .footer-links a,
   .high-contrast .copyright-text {
-    background-color: #000 !important;
-    color: #fff !important;
-    border-color: #fff !important;
+    background-color: #000;
+    color: #fff;
+    border-color: #fff ;
   }
 /* Corrige cor dos títulos das seções em AccountSettingsP */
 .high-contrast .settings-card .card-header h5 {
-  color: #000 !important; /* Amarelo para alto contraste */
+  color: #000; /* Amarelo para alto contraste */
 }
 .high-contrast .row,
 .high-contrast .col-lg-6,
 .high-contrast .col-md-4 {
-  background-color: #000 !important;
-  color: #fff !important;
-  border-color: #fff !important;
+  background-color: #000 ;
+  color: #fff ;
+  border-color: #fff ;
 }
 .high-contrast img {
   filter: grayscale(100%) contrast(200%);
 }
 .high-contrast .btn {
-  background-color: #fff !important;
-  color: #000 !important;
-  border: 2px solid #fff !important;
+  background-color: #fff ;
+  color: #000 ;
+  border: 2px solid #fff ;
 }
