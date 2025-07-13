@@ -20,7 +20,7 @@ function HighContrastToggle() {
       className="high-contrast-toggle"
       style={{
         position: 'fixed',
-        bottom: '80px',
+        bottom: '64px',
         right: '24px',
         zIndex: 9999,
         width: '56px',

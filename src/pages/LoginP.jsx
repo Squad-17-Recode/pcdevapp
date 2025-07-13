@@ -1,16 +1,4 @@
-import React, { useState, useEffect } from 'react';
-  const [highContrast, setHighContrast] = useState(false);
-
-  useEffect(() => {
-    if (highContrast) {
-      document.body.classList.add('high-contrast');
-    } else {
-      document.body.classList.remove('high-contrast');
-    }
-    return () => {
-      document.body.classList.remove('high-contrast');
-    };
-  }, [highContrast]);
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import ToastNotification from '../components/ToastNotification';
