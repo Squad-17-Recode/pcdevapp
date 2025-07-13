@@ -29,7 +29,7 @@ function AccessibilityCard({ icon, title, text }) {
         <i className={`bi ${icon} display-4 text-primary mb-3`}></i>
         <h3 className="h4 mb-3">{title}</h3>
         <p className="mb-4">{text}</p>
-        <button className="btn btn-outline-primary mt-auto" disabled>Em breve</button>
+        <button type="button" className="btn btn-outline-primary mt-auto" disabled>Em breve</button>
       </div>
     </div>
   );
