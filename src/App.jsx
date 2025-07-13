@@ -38,6 +38,7 @@ function App() {
 
             {/* ★ ☆ ★ Rotas Protegidas (Apenas para usuários logados) ★ ☆ ★ */}
             <Route element={<ProtectedRoute />}>
+              <Route path="/settings" element={<AccountSettingsP />} />
             </Route>
 
             {/* ★ ☆ ★ Rotas de Admin (Apenas para usuários com role 'admin') ★ ☆ ★ */}
