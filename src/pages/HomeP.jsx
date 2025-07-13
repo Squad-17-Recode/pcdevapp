@@ -1,7 +1,8 @@
 
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/AcessibilidadeP.css';
+import '../styles/high-contrast.css';
 import HeroP from '../components/HeroP';
 import heroImage from '../assets/images/acessibilidade-hero.png';
 import librasImage from '../assets/images/libras.png';
@@ -38,13 +39,25 @@ function AccessibilityCard({ icon, title, text }) {
 }
 
 function HomeP() {
+  const [highContrast, setHighContrast] = useState(false);
+
+  useEffect(() => {
+    if (highContrast) {
+      document.body.classList.add('high-contrast');
+    } else {
+      document.body.classList.remove('high-contrast');
+    }
+    return () => {
+      document.body.classList.remove('high-contrast');
+    };
+  }, [highContrast]);
+
   return (
     <>
       <HeroP
         title="Acessibilidade e Inclusão"
         subtitle="Promovendo ferramentas acessíveis e apoio a todas as pessoas com deficiência."
         image={heroImage}>
-
       </HeroP>
 
       <section className="py-5">

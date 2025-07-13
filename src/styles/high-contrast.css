@@ -1,0 +1,25 @@
+/* Alto contraste para acessibilidade */
+.high-contrast {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+.high-contrast a,
+.high-contrast .btn,
+.high-contrast .navbar,
+.high-contrast .card,
+.high-contrast .container,
+.high-contrast .row,
+.high-contrast .col-lg-6,
+.high-contrast .col-md-4 {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+.high-contrast img {
+  filter: grayscale(100%) contrast(200%);
+}
+.high-contrast .btn {
+  background-color: #fff !important;
+  color: #000 !important;
+  border: 2px solid #fff !important;
+}

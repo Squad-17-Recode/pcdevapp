@@ -4,6 +4,7 @@ import './styles/App.css';
 
 // Layout & Rotas
 import Navbar from './components/navbar';
+import HighContrastToggle from './components/HighContrastToggle';
 import Footer from './components/footer';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -27,6 +28,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <HighContrastToggle />
         <Navbar />
         <main>
           <Routes>
