@@ -26,7 +26,27 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  // Modo mock: se MOCK_LOGIN=true, simula login sem backend
+  const MOCK_LOGIN = true; // Altere para false para usar o backend
+
   const login = async (email, password) => {
+    if (MOCK_LOGIN) {
+      // Simula delay de requisição
+      await new Promise(res => setTimeout(res, 500));
+      // Usuário e token mock
+      const mockToken =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
+        btoa(JSON.stringify({ nome: 'Usuário Mock', role: email === 'admin@admin.com' ? 'admin' : 'user', exp: Math.floor(Date.now() / 1000) + 3600 })) +
+        '.MOCKSIGNATURE';
+      sessionStorage.setItem('authToken', mockToken);
+      setUser({
+        name: email === 'admin@admin.com' ? 'Admin' : 'Usuário',
+        role: email === 'admin@admin.com' ? 'admin' : 'user',
+        profilePicture: `https://placehold.co/40x40/${email === 'admin@admin.com' ? '9a3412' : 'c2410c'}/FFFFFF?text=${email.charAt(0)}`
+      });
+      return { success: true };
+    }
+    // ...código original para login real...
     try {
       const response = await fetch('http://localhost:8080/api/auth/login', {
         method: 'POST',
