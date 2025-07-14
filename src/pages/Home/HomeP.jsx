@@ -1,4 +1,4 @@
-import HeroP from '../pages/HeroP/HeroP';
+import HeroP from '../HeroP/HeroP';
 import heroImage from '../assets/images/acessibilidade-hero.png';
 import '../styles/HomeP.css';
 import pcdOfficeImg from '../assets/images/pcd-office-1.jpg';
