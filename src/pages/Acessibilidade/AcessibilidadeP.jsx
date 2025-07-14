@@ -28,25 +28,6 @@ function SupportSection({ image, title, description, link }) {
 	);
 }
 
-function AccessibilityCard({ icon, title, text }) {
-	return (
-		<div className="col-md-4 mb-4">
-			<div className="wellness-card p-4 bg-white rounded shadow-sm text-center h-100">
-				<i className={`bi ${icon} display-4 text-primary mb-3`}></i>
-				<h3 className="h4 mb-3">{title}</h3>
-				<p className="mb-4">{text}</p>
-				<button
-					type="button"
-					className="btn btn-outline-primary mt-auto"
-					disabled
-				>
-					Em breve
-				</button>
-			</div>
-		</div>
-	);
-}
-
 function AcessibilidadeP() {
 	return (
 		<>
@@ -61,13 +42,13 @@ function AcessibilidadeP() {
 					<SupportSection
 						image={librasImage}
 						title="Intérprete Virtual de LIBRAS"
-						description="Em breve, nosso site contará com um assistente virtual de LIBRAS para tornar os conteúdos mais acessíveis à comunidade surda."
+						description="Nosso site conta com um assistente virtual de LIBRAS para tornar os conteúdos mais acessíveis à comunidade surda."
 						link="#"
 					/>
 					<SupportSection
 						image={audioImage}
 						title="Leitura em Voz Alta"
-						description="Funcionalidade de leitura de conteúdo em áudio para pessoas com deficiência visual ou com dificuldade de leitura. Em breve disponível!"
+						description="Funcionalidade de leitura de conteúdo em áudio para pessoas com deficiência visual ou com dificuldade de leitura."
 						link="#"
 					/>
 					<SupportSection
@@ -82,31 +63,6 @@ function AcessibilidadeP() {
 						description="Navegação facilitada por teclado, ajuste de contraste, tamanho da fonte e muito mais. Nossa meta é garantir acesso total a todos."
 						link="#"
 					/>
-
-					<div className="row mb-5">
-						<div className="col-12 text-center mb-5">
-							<h2 className="display-6">Funcionalidades Planejadas</h2>
-							<p className="lead">
-								Em breve, novas ferramentas para tornar nossa plataforma ainda
-								mais inclusiva
-							</p>
-						</div>
-						<AccessibilityCard
-							icon="bi-sign-language"
-							title="LIBRAS"
-							text="Tradução simultânea de conteúdos em língua de sinais."
-						/>
-						<AccessibilityCard
-							icon="bi-volume-up"
-							title="Áudio"
-							text="Conversão de texto em fala para usuários com baixa visão."
-						/>
-						<AccessibilityCard
-							icon="bi-palette"
-							title="Filtro de Cores"
-							text="Opções visuais otimizadas para pessoas daltônicas."
-						/>
-					</div>
 				</div>
 			</section>
 
