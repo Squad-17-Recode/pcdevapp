@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import CardEmpregos from "../../components/card-vagas/cardEmpregos";
+import CardEmpresa from "../../components/card-empresa/cardEmpresa";
 import ToastNotification from "../../components/toast-notification/ToastNotification";
-import "./EmpregosP.css";
+import "./EmpresaP.css";
 
-function EmpregosP() {
-	const [vagas, setVagas] = useState([]);
+function EmpresaP() {
+	const [empresas, setEmpresas] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [notification, setNotification] = useState({ message: "", type: "" });
@@ -17,73 +17,67 @@ function EmpregosP() {
 		setNotification({ message, type });
 	}, []);
 
-	const fetchVagas = useCallback(async (page = 1) => {
+	const fetchEmpresas = useCallback(async (page = 1) => {
 		try {
 			setLoading(true);
 			setError(null);
-		const response = await fetch(
-			`http://localhost:8080/api/vagas?page=${page}&size=${pageSize}`
-		);
 
-		if (!response.ok) {
-			if (response.status === 404) {
-				// Handle 404 specifically - no jobs available
-				setVagas([]);
-				setTotalPages(0);
-				setTotalElements(0);
-				setCurrentPage(1);
-				showNotification("Não há vagas no momento", "info");
-				return;
+			const response = await fetch(
+				`http://localhost:8080/api/empresas?page=${page}&size=${pageSize}`
+			);
+
+			if (!response.ok) {
+				throw new Error(`Erro ao carregar empresas: ${response.status}`);
 			}
-			throw new Error(`Erro ao carregar vagas: ${response.status}`);
-		}
 
-		const data = await response.json();
+			const data = await response.json();
 
 			// Handle paginated response structure
 			if (data.content) {
-				setVagas(data.content);
+				setEmpresas(data.content);
 				setTotalPages(data.totalPages);
 				setTotalElements(data.totalElements);
 				setCurrentPage(data.currentPage);
 			} else {
 				// Fallback for non-paginated response
-				setVagas(data);
+				setEmpresas(data);
 			}
 		} catch (err) {
-			console.error("Erro ao buscar vagas:", err);
-			setError(err.message || "Erro ao carregar vagas");
-			showNotification("Erro ao carregar vagas. Tente novamente.", "error");
+			console.error("Erro ao buscar empresas:", err);
+			setError(err.message || "Erro ao carregar empresas");
+			showNotification("Erro ao carregar empresas. Tente novamente.", "error");
 		} finally {
 			setLoading(false);
 		}
 	}, [pageSize, showNotification]);
 
 	useEffect(() => {
-		fetchVagas(1);
-	}, [fetchVagas]);
+		fetchEmpresas(1);
+	}, [fetchEmpresas]);
 
-	const handleCandidatar = (vaga) => {
-		// TODO: Open application modal or navigate to application page
-		console.log("Candidatar-se para vaga:", vaga);
-		showNotification(`Em breve: candidatura para ${vaga.nomeCargo}`, "info");
+	const handleEntrarContato = (empresa) => {
+		// TODO: Open contact modal or navigate to contact page
+		console.log("Entrar em contato com empresa:", empresa);
+		showNotification(`Em breve: contato com ${empresa.nome}`, "info");
 	};
 
 	const handlePageChange = (newPage) => {
 		if (newPage >= 1 && newPage <= totalPages && newPage !== currentPage) {
 			setCurrentPage(newPage);
-			fetchVagas(newPage);
+			fetchEmpresas(newPage);
 			// Scroll to top when changing pages
 			window.scrollTo({ top: 0, behavior: 'smooth' });
 		}
 	};
 
 	const handleRetry = () => {
-		fetchVagas(currentPage);
+		fetchEmpresas(currentPage);
 	};
 
 	return (
-		<div className={`empregos-page${document.body.classList.contains("high-contrast") ? " high-contrast" : ""}`}>
+		<div
+			className={`empresas-page${document.body.classList.contains("high-contrast") ? " high-contrast" : ""}`}
+		>
 			{notification.message && (
 				<ToastNotification
 					message={notification.message}
@@ -92,25 +86,25 @@ function EmpregosP() {
 				/>
 			)}
 
-			<div className="empregos-container">
-				<div className="empregos-header">
-					<h1 className="empregos-title">Oportunidades de Emprego</h1>
-					<p className="empregos-subtitle">
-						Encontre vagas inclusivas e acessíveis para sua carreira
+			<div className="empresas-container">
+				<div className="empresas-header">
+					<h1 className="empresas-title">Empresas Parceiras</h1>
+					<p className="empresas-subtitle">
+						Descubra empresas comprometidas com a inclusão e diversidade
 					</p>
 				</div>
 
 				{loading && (
-					<div className="empregos-loading">
+					<div className="empresas-loading">
 						<div className="spinner-border text-primary">
 							<output className="visually-hidden">Carregando...</output>
 						</div>
-						<p>Carregando vagas...</p>
+						<p>Carregando empresas...</p>
 					</div>
 				)}
 
 				{error && (
-					<div className="empregos-error">
+					<div className="empresas-error">
 						<div className="alert alert-danger" role="alert">
 							<i className="bi bi-exclamation-triangle-fill me-2"></i>
 							{error}
@@ -121,32 +115,31 @@ function EmpregosP() {
 					</div>
 				)}
 
-				{!loading && !error && vagas.length === 0 && (
-					<div className="empregos-empty">
+				{!loading && !error && empresas.length === 0 && (
+					<div className="empresas-empty">
 						<div className="empty-state">
-							<i className="bi bi-briefcase"></i>
-							<h3>Sem vagas disponíveis no momento</h3>
-							<p>Novas oportunidades serão publicadas em breve.</p>
+							<i className="bi bi-building"></i>
+							<h3>Nenhuma empresa encontrada</h3>
+							<p>Não há empresas cadastradas no momento.</p>
 						</div>
 					</div>
 				)}
 
-				{!loading && !error && vagas.length > 0 && (
+				{!loading && !error && empresas.length > 0 && (
 					<>
-						<div className="empregos-info">
+						<div className="empresas-info">
 							<p className="results-info">
-								Mostrando {vagas.length} de {totalElements} vagas
+								Mostrando {empresas.length} de {totalElements} empresas
 								{totalPages > 1 && ` - Página ${currentPage} de ${totalPages}`}
 							</p>
 						</div>
 
-						<div className="empregos-grid">
-							{vagas.map((vaga) => (
-								<CardEmpregos
-									key={vaga.id}
-									vaga={vaga}
-									onCandidatar={handleCandidatar}
-								/>
+						<div className="empresas-grid">
+							{empresas.map((empresa) => (							<CardEmpresa
+								key={empresa.id || empresa.username}
+								empresa={empresa}
+								onEntrarContato={handleEntrarContato}
+							/>
 							))}
 						</div>
 
@@ -211,4 +204,4 @@ function EmpregosP() {
 	);
 }
 
-export default EmpregosP;
+export default EmpresaP;

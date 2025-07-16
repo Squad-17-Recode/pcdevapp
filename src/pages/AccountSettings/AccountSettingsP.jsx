@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ToastNotification from "../../components/toast-notification/ToastNotification";
 import { useAuth } from "../../context/AuthContext";
-import "../../styles/AccountSettingsP.css";
+import "./AccountSettingsP.css";
 
 function DeleteConfirmationModal({ isOpen, onClose, onConfirm, isClosing }) {
 	if (!isOpen) return null;

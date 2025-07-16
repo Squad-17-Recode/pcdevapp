@@ -3,8 +3,8 @@ import heroImage from "../../assets/images/acessibilidade-hero.png";
 import audioImage from "../../assets/images/audio.png";
 import daltonismoImage from "../../assets/images/daltonismo.png";
 import librasImage from "../../assets/images/libras.png";
-import HeroP from "../../pages/HeroP/HeroP";
-import "../../styles/AcessibilidadeP.css";
+import HeroP from "../Hero/HeroP";
+import "./AcessibilidadeP.css";
 
 function SupportSection({ image, title, description, link }) {
 	return (

@@ -1,0 +1,203 @@
+.card-emprego {
+	background: white;
+	border-radius: 12px;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+	padding: 24px;
+	margin-bottom: 20px;
+	transition: all 0.3s ease;
+	border: 1px solid #e5e7eb;
+}
+
+.card-emprego:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card-emprego-header {
+	margin-bottom: 16px;
+}
+
+.card-emprego-titulo {
+	margin: 0 0 8px 0;
+	font-size: 1.4rem;
+	font-weight: 600;
+	color: #1f2937;
+	line-height: 1.3;
+}
+
+.card-emprego-empresa {
+	margin: 0 0 12px 0;
+	color: #dc2626;
+	font-size: 1rem;
+	font-weight: 500;
+}
+
+.card-emprego-descricao {
+	margin: 0;
+	color: #6b7280;
+	font-size: 0.95rem;
+	line-height: 1.5;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.card-emprego-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 16px;
+}
+
+.tag {
+	background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+	color: #374151;
+	padding: 4px 12px;
+	border-radius: 20px;
+	font-size: 0.85rem;
+	font-weight: 500;
+	border: 1px solid #d1d5db;
+}
+
+.card-emprego-details {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	margin-bottom: 20px;
+	padding: 12px 0;
+	border-top: 1px solid #f3f4f6;
+}
+
+.card-emprego-salario,
+.card-emprego-contrato,
+.card-emprego-localizacao {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	color: #6b7280;
+	font-size: 0.9rem;
+}
+
+.card-emprego-salario i,
+.card-emprego-contrato i,
+.card-emprego-localizacao i {
+	color: #dc2626;
+	font-size: 1rem;
+}
+
+.card-emprego-actions {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.btn-candidatar {
+	background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+	color: white;
+	border: none;
+	border-radius: 8px;
+	padding: 12px 24px;
+	font-size: 0.95rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.btn-candidatar:hover {
+	background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.btn-candidatar:active {
+	transform: translateY(0);
+}
+
+.btn-candidatar:focus {
+	outline: 2px solid #dc2626;
+	outline-offset: 2px;
+}
+
+/* High contrast mode support */
+.high-contrast .card-emprego {
+	background: #000;
+	border-color: #fff;
+	color: #fff;
+}
+
+.high-contrast .card-emprego-titulo {
+	color: #fff;
+}
+
+.high-contrast .card-emprego-empresa {
+	color: #fff;
+}
+
+.high-contrast .card-emprego-descricao {
+	color: #ccc;
+}
+
+.high-contrast .tag {
+	background: #333;
+	color: #fff;
+	border-color: #fff;
+}
+
+.high-contrast .card-emprego-details {
+	border-color: #666;
+}
+
+.high-contrast .card-emprego-salario,
+.high-contrast .card-emprego-contrato,
+.high-contrast .card-emprego-localizacao {
+	color: #ccc;
+}
+
+.high-contrast .card-emprego-salario i,
+.high-contrast .card-emprego-contrato i,
+.high-contrast .card-emprego-localizacao i {
+	color: #fff;
+}
+
+.high-contrast .btn-candidatar {
+	background: #fff;
+	color: #000;
+	border: 2px solid #fff;
+}
+
+.high-contrast .btn-candidatar:hover {
+	background: #ccc;
+	color: #000;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+	.card-emprego {
+		padding: 16px;
+		margin-bottom: 16px;
+	}
+
+	.card-emprego-titulo {
+		font-size: 1.2rem;
+	}
+
+	.card-emprego-details {
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.card-emprego-actions {
+		justify-content: center;
+	}
+
+	.btn-candidatar {
+		padding: 10px 20px;
+		font-size: 0.9rem;
+		width: 100%;
+		justify-content: center;
+	}
+}

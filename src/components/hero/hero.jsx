@@ -1,5 +1,5 @@
-import '../styles/hero.css';
-import heroImage from '../assets/images/pcd.png';
+import heroImage from '../../assets/images/pcd.png';
+import './hero.css';
 
 function Hero() {
   const heroStyle = {

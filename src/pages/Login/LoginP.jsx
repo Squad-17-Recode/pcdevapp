@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ToastNotification from "../../components/toast-notification/ToastNotification";
 import { useAuth } from "../../context/AuthContext";
-import "../../styles/LoginP.css";
+import "./LoginP.css";
 
 function LoginP() {
 	const [isSignUp, setIsSignUp] = useState(false);
@@ -10,9 +10,12 @@ function LoginP() {
 	const { login } = useAuth();
 
 	const [name, setName] = useState("");
+	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
+	const [phone, setPhone] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [loginUsername, setLoginUsername] = useState(""); // For login form
 
 	const [loading, setLoading] = useState(false);
 	const [formErrors, setFormErrors] = useState({});
@@ -21,6 +24,14 @@ function LoginP() {
 	const togglePanel = () => {
 		setIsSignUp(!isSignUp);
 		setFormErrors({});
+		// Clear form fields when switching panels
+		setName("");
+		setUsername("");
+		setEmail("");
+		setPhone("");
+		setPassword("");
+		setConfirmPassword("");
+		setLoginUsername("");
 	};
 
 	const showNotification = (message, type = "success") => {
@@ -31,8 +42,16 @@ function LoginP() {
 	const validateSignUp = () => {
 		const errors = {};
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		const phoneRegex = /^(\(?\d{2}\)?\s?)?\d{4,5}-?\d{4}$/;
+
 		if (!name.trim()) errors.name = "O nome é obrigatório.";
+		if (!username.trim()) {
+			errors.username = "O nome de usuário é obrigatório.";
+		} else if (username.length < 3) {
+			errors.username = "O nome de usuário deve ter no mínimo 3 caracteres.";
+		}
 		if (!emailRegex.test(email)) errors.email = "Formato de e-mail inválido.";
+		if (!phoneRegex.test(phone.replace(/\s/g, ''))) errors.phone = "Formato de telefone inválido. Use (xx) xxxxx-xxxx";
 		if (password.length < 5)
 			errors.password = "A senha deve ter no mínimo 5 caracteres.";
 		if (password !== confirmPassword)
@@ -46,13 +65,13 @@ function LoginP() {
 		e.preventDefault();
 		setFormErrors({});
 
-		if (!email || !password) {
-			setFormErrors({ general: "Por favor, preencha o e-mail e a senha." });
+		if (!loginUsername || !password) {
+			setFormErrors({ general: "Por favor, preencha o nome de usuário/email e a senha." });
 			return;
 		}
 
 		setLoading(true);
-		const result = await login(email, password);
+		const result = await login(loginUsername, password);
 		setLoading(false);
 
 		if (result.success) {
@@ -69,28 +88,109 @@ function LoginP() {
 		if (validateSignUp()) {
 			setLoading(true);
 			try {
+				// Create the payload with required fields and mock data
+				const candidatoData = {
+					username: username, // Using actual username field
+					email: email,
+					senha: password,
+					nome: name,
+					cpf: "12345678900", // Mock CPF
+					bio: "Novo candidato na plataforma PCDev", // Mock bio
+					fotoPerfil: "https://www.ahnegao.com.br/wp-content/uploads/2019/04/olokinho.jpg.webp", // Optional field
+					endereco: {
+						cep: "01000000",
+						rua: "Rua Exemplo",
+						numero: "123",
+						complemento: "",
+						bairro: "Centro",
+						cidade: "São Paulo",
+						estado: "SP",
+						pais: "Brasil"
+					},
+					tipoDeficiencia: "FISICA", // Mock tipo de deficiência
+					contatos: [
+						{
+							numeroTelefone: phone
+						}
+					],
+					habilidades: [
+						{
+							nome: "Programação",
+							anosExperiencia: 1
+						}
+					]
+				};
+
+				console.log("Sending candidato data:", JSON.stringify(candidatoData, null, 2));
+
+				// Add timeout to the fetch request
+				const controller = new AbortController();
+				const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 seconds timeout
+
 				const response = await fetch(
-					"http://localhost:8080/api/auth/register",
+					"http://localhost:8080/api/candidatos",
 					{
 						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ nome: name, email, senha: password }),
+						headers: {
+							"Content-Type": "application/json",
+							"Accept": "application/json"
+						},
+						body: JSON.stringify(candidatoData),
+						signal: controller.signal
 					},
 				);
 
+				clearTimeout(timeoutId);
+
+				console.log("Response status:", response.status);
+				console.log("Response headers:", Object.fromEntries(response.headers.entries()));
+
 				if (!response.ok) {
 					const errorText = await response.text();
-					throw new Error(errorText || "Falha ao criar a conta.");
+					console.error("Error response:", errorText);
+					console.error("Response status:", response.status);
+					console.error("Response statusText:", response.statusText);
+
+					let errorData;
+					try {
+						errorData = JSON.parse(errorText);
+						console.error("Parsed error data:", errorData);
+					} catch {
+						errorData = { message: errorText };
+					}
+
+					// More specific error handling
+					if (response.status === 400) {
+						throw new Error(`Dados inválidos: ${errorData.message || errorText}`);
+					} else if (response.status === 409) {
+						throw new Error("Email já cadastrado. Tente com outro email.");
+					} else if (response.status === 500) {
+						throw new Error(`Erro interno do servidor: ${errorData.message || errorText}`);
+					} else {
+						throw new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
+					}
 				}
+
+				const responseData = await response.json();
+				console.log("Success response:", responseData);
 
 				showNotification("Conta criada com sucesso! Por favor, faça o login.");
 				setIsSignUp(false);
 				setName("");
+				setUsername("");
 				setEmail("");
+				setPhone("");
 				setPassword("");
 				setConfirmPassword("");
 			} catch (error) {
-				setFormErrors({ general: error.message });
+				console.error("Erro no cadastro:", error);
+				if (error.name === 'AbortError') {
+					setFormErrors({ general: "A solicitação expirou. Verifique sua conexão e tente novamente." });
+				} else if (error.message.includes('NetworkError') || error.message.includes('fetch')) {
+					setFormErrors({ general: "Erro de rede. Verifique sua conexão com a internet." });
+				} else {
+					setFormErrors({ general: error.message || "Erro de conexão. Tente novamente." });
+				}
 			} finally {
 				setLoading(false);
 			}
@@ -142,6 +242,17 @@ function LoginP() {
 						)}
 
 						<input
+							className={`form-input ${formErrors.username ? "is-invalid" : ""}`}
+							type="text"
+							placeholder="Nome de usuário"
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
+						/>
+						{formErrors.username && (
+							<div className="invalid-feedback-form">{formErrors.username}</div>
+						)}
+
+						<input
 							className={`form-input ${formErrors.email ? "is-invalid" : ""}`}
 							type="email"
 							placeholder="Email"
@@ -150,6 +261,17 @@ function LoginP() {
 						/>
 						{formErrors.email && (
 							<div className="invalid-feedback-form">{formErrors.email}</div>
+						)}
+
+						<input
+							className={`form-input ${formErrors.phone ? "is-invalid" : ""}`}
+							type="tel"
+							placeholder="Telefone (xx) xxxxx-xxxx"
+							value={phone}
+							onChange={(e) => setPhone(e.target.value)}
+						/>
+						{formErrors.phone && (
+							<div className="invalid-feedback-form">{formErrors.phone}</div>
 						)}
 
 						<input
@@ -175,7 +297,13 @@ function LoginP() {
 								{formErrors.confirmPassword}
 							</div>
 						)}
-
+						<button
+							type="button"
+							className="form-link"
+							style={{ background: 'none', border: 'none', padding: 0, color: 'inherit', textDecoration: 'underline', cursor: 'pointer' }}
+						>
+							Sou empresa
+						</button>
 						<button
 							className="form-button mt-3"
 							type="submit"
@@ -208,10 +336,10 @@ function LoginP() {
 						)}
 						<input
 							className="form-input"
-							type="email"
-							placeholder="Email"
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							type="text"
+							placeholder="Nome de usuário ou Email"
+							value={loginUsername}
+							onChange={(e) => setLoginUsername(e.target.value)}
 						/>
 						<input
 							className="form-input"
@@ -220,9 +348,13 @@ function LoginP() {
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 						/>
-						<a className="form-link" href="#">
-							É empresa?
-						</a>
+						<button
+							type="button"
+							className="form-link"
+							style={{ background: 'none', border: 'none', padding: 0, color: 'inherit', textDecoration: 'underline', cursor: 'pointer' }}
+						>
+							Sou empresa
+						</button>
 						<button className="form-button" type="submit" disabled={loading}>
 							{loading && !isSignUp ? (
 								<span className="spinner-border spinner-border-sm"></span>

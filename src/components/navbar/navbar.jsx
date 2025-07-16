@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
 import logo from "../../assets/images/logo.png";
-import "../../styles/navbar.css";
+import { useAuth } from "../../context/AuthContext";
+import "./navbar.css";
 
 function useOutsideAlerter(ref, onOutsideClick, isCollapsed) {
 	useEffect(() => {
@@ -65,7 +65,11 @@ function UserMenu({ user, onLogoutClick, isAdmin }) {
 						Minha Conta
 					</NavLink>
 					<div className="dropdown-divider"></div>
-					<button type="button" className="dropdown-item" onClick={onLogoutClick}>
+					<button
+						type="button"
+						className="dropdown-item"
+						onClick={onLogoutClick}
+					>
 						Sair
 					</button>
 				</div>
@@ -147,7 +151,7 @@ function Navbar() {
 					className={`mobile-menu-backdrop ${isClosing ? "exiting" : ""}`}
 					onClick={closeMenu}
 					onKeyDown={(e) => {
-						if (e.key === 'Enter' || e.key === ' ') {
+						if (e.key === "Enter" || e.key === " ") {
 							closeMenu();
 						}
 					}}
@@ -183,17 +187,8 @@ function Navbar() {
 						</div>
 						<ul className="navbar-nav ms-auto align-items-center">
 							<li className="nav-item">
-								<NavLink
-									className="nav-link"
-									to="/inclusao"
-									onClick={closeMenu}
-								>
-									<i className="bi bi-universal-access me-1"></i>Inclusão
-								</NavLink>
-							</li>
-							<li className="nav-item">
-								<NavLink className="nav-link" to="/cursos" onClick={closeMenu}>
-									<i className="bi bi-book me-1"></i>Cursos
+								<NavLink className="nav-link" to="/empresa" onClick={closeMenu}>
+									<i className="bi bi-buildings me-1"></i>Empresas
 								</NavLink>
 							</li>
 							<li className="nav-item">

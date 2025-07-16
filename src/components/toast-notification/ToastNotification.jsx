@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import '../../styles/ToastNotification.css';
+import './ToastNotification.css';
 
 function ToastNotification({ message, type = 'success', onClose }) {
   useEffect(() => {
